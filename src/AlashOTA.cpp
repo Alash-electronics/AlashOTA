@@ -25,6 +25,15 @@ x.onerror=function(){$("b").disabled=false;m.textContent=l[4];m.className="e"};
 x.open("POST",location.pathname);x.send(d)};
 </script></body></html>)HTML";
 
+// ESP32 принимает прошивку неизвестного размера, ESP8266 нужен размер: даём всё свободное место
+#if defined(ESP8266)
+#define ALASH_UPDATE_SIZE ((ESP.getFreeSketchSpace() - 0x1000) & 0xFFFFF000)
+static void updateAbort() { Update.end(false); }
+#else
+#define ALASH_UPDATE_SIZE UPDATE_SIZE_UNKNOWN
+static void updateAbort() { Update.abort(); }
+#endif
+
 AlashOTA::AlashOTA(uint16_t port) : _srv(new AlashOtaServer(port)), _own(true), _port(port) {}
 AlashOTA::AlashOTA(AlashOtaServer &server) : _srv(&server), _own(false) {}
 AlashOTA::~AlashOTA() { if (_own) delete _srv; }
@@ -98,7 +107,7 @@ void AlashOTA::handlePage() {
 }
 
 void AlashOTA::fail(Error e) {
-  if (_busy) Update.abort();
+  if (_busy) updateAbort();
   _busy = false;
   _failed = true;
   _err = e;
@@ -113,7 +122,7 @@ void AlashOTA::handleUpload() {
     String fn = up.filename;
     fn.toLowerCase();
     if (!fn.endsWith(".bin")) { fail(ERR_BAD_FILE); return; }
-    if (!Update.begin(UPDATE_SIZE_UNKNOWN)) { fail(ERR_NO_SPACE); return; }
+    if (!Update.begin(ALASH_UPDATE_SIZE)) { fail(ERR_NO_SPACE); return; }
     _busy = true;
     if (_onStart) _onStart();
   } else if (up.status == UPLOAD_FILE_WRITE) {
@@ -134,7 +143,7 @@ void AlashOTA::handleUpload() {
     _busy = false;
     if (_onEnd) _onEnd();
   } else if (up.status == UPLOAD_FILE_ABORTED) {
-    if (_busy) { Update.abort(); _busy = false; }
+    if (_busy) { updateAbort(); _busy = false; }
     _failed = true;
   }
 }

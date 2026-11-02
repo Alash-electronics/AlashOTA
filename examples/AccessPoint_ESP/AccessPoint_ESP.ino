@@ -1,5 +1,9 @@
 // AlashOTA без роутера: плата создаёт свою сеть Wi-Fi. Подключитесь к ней телефоном и откройте http://192.168.4.1/update
-#include <WiFi.h>        // для ESP8266 замените на <ESP8266WiFi.h>
+#if defined(ESP32)
+#include <WiFi.h>
+#else
+#include <ESP8266WiFi.h>
+#endif
 #include <AlashOTA.h>
 
 AlashOTA ota;

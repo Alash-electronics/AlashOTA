@@ -1,6 +1,10 @@
 // AlashOTA: обновление прошивки из браузера. Один раз загрузите этот скетч по USB, дальше новые версии можно заливать по Wi-Fi.
 // Как обновить: Arduino IDE, Скетч, Экспорт скомпилированного бинарного файла; откройте адрес из монитора порта, логин admin, пароль ниже; выберите файл .ino.bin.
-#include <WiFi.h>        // для ESP8266 замените на <ESP8266WiFi.h>
+#if defined(ESP32)
+#include <WiFi.h>
+#else
+#include <ESP8266WiFi.h>
+#endif
 #include <AlashOTA.h>
 
 const char *WIFI_NAME = "ИМЯ_СЕТИ";

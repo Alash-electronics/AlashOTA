@@ -1,5 +1,9 @@
 // AlashOTA: страница обновления не открывается? Скетч покажет состояние Wi-Fi, адрес и свободное место, и подскажет, что проверить.
-#include <WiFi.h>        // для ESP8266 замените на <ESP8266WiFi.h>
+#if defined(ESP32)
+#include <WiFi.h>
+#else
+#include <ESP8266WiFi.h>
+#endif
 #include <AlashOTA.h>
 
 const char *WIFI_NAME = "ИМЯ_СЕТИ";
