@@ -1,4 +1,6 @@
-// AlashOTA: что происходит во время обновления. Обработчики onStart / onProgress / onEnd / onError: можно погасить реле, показать процент на экране.
+// [ru] AlashOTA: что происходит во время обновления. Обработчики onStart / onProgress / onEnd / onError: можно погасить реле, показать процент на экране.
+// [kk] AlashOTA: жаңарту кезінде не болады. onStart / onProgress / onEnd / onError өңдеушілері: релені өшіруге, экранда пайызды көрсетуге болады.
+// [en] AlashOTA: what happens during an update. The onStart / onProgress / onEnd / onError handlers: you can switch off a relay or show the percentage on a screen.
 #if defined(ESP32)
 #include <WiFi.h>
 #else

@@ -1,4 +1,6 @@
-// AlashOTA: страница обновления не открывается? Скетч покажет состояние Wi-Fi, адрес и свободное место, и подскажет, что проверить.
+// [ru] AlashOTA: страница обновления не открывается? Скетч покажет состояние Wi-Fi, адрес и свободное место, и подскажет, что проверить.
+// [kk] AlashOTA: жаңарту беті ашылмай ма? Скетч Wi-Fi күйін, мекенжайды және бос орынды көрсетеді және нені тексеру керегін айтады.
+// [en] AlashOTA: the update page does not open? The sketch shows the Wi-Fi state, the address and the free space, and tells what to check.
 #if defined(ESP32)
 #include <WiFi.h>
 #else

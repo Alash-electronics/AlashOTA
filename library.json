@@ -1,6 +1,6 @@
 {
   "name": "AlashOTA",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Browser firmware update (OTA) for ESP32 / ESP8266: password, file and chip checks, safe on errors, ru/kk/en tips, no dependencies",
   "keywords": "OTA, ESP32, ESP8266, firmware update, web update, Wi-Fi",
   "repository": {
